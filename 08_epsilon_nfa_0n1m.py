@@ -1,16 +1,15 @@
-# ε-NFA for L = {0^n 1^m | n,m >= 0}
+# ε-NFA for L = {0^n1^m | n,m >= 0}
 
 string = input("Enter a binary string: ")
 
 state = "q0"
+valid = True
 
 print("\nProcessing:")
 
-valid = True
-
 for ch in string:
 
-    print(state, "--", ch, "-->", end=" ")
+    old_state = state
 
     if state == "q0":
 
@@ -30,14 +29,14 @@ for ch in string:
 
         elif ch == '0':
             valid = False
-            break
 
-        else:
-            valid = False
+    print(old_state, "--", ch, "-->", state)
 
-    print(state)
+    if not valid:
+        break
 
 if valid:
-    print("\nString Accepted")
+    print("\nFinal State:", state)
+    print("String Accepted")
 else:
     print("\nString Rejected")

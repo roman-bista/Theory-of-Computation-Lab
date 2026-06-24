@@ -4,10 +4,18 @@ string = input("Enter a binary string: ")
 
 print("\nProcessing:")
 
-for ch in string:
-    print("Read:", ch)
+for i in range(len(string)):
+    print("Read:", string[i])
 
-if len(string) > 0 and string[0] == '1' and string[-1] == '0':
-    print("\nString Accepted")
+if len(string) > 0:
+
+    print("\nFirst Symbol =", string[0])
+    print("Last Symbol =", string[-1])
+
+    if string[0] == '1' and string[-1] == '0':
+        print("String Accepted")
+    else:
+        print("String Rejected")
+
 else:
-    print("\nString Rejected")
+    print("String Rejected")
