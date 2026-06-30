@@ -1,21 +1,50 @@
-# NFA for strings starting with 1 and ending with 0
+# NFA: Accepts strings that start with 1 and end with 0
 
 string = input("Enter a binary string: ")
 
+# Initialize states
+q0 = "q0"      # Start State
+q1 = "q1"      # String starts with 1
+q2 = "q2"      # Accept State
+
+current_states = {q0}
+
 print("\nProcessing:")
 
-for i in range(len(string)):
-    print("Read:", string[i])
+for ch in string:
 
-if len(string) > 0:
+    print(current_states, "--", ch, "-->", end=" ")
 
-    print("\nFirst Symbol =", string[0])
-    print("Last Symbol =", string[-1])
+    next_states = set()
 
-    if string[0] == '1' and string[-1] == '0':
-        print("String Accepted")
-    else:
-        print("String Rejected")
+    for state in current_states:
 
+        if state == q0:
+
+            if ch == '1':
+                next_states.add(q1)
+
+        elif state == q1:
+
+            if ch == '0':
+                next_states.add(q1)
+                next_states.add(q2)
+
+            elif ch == '1':
+                next_states.add(q1)
+
+        elif state == q2:
+
+            if ch == '0':
+                next_states.add(q2)
+
+    current_states = next_states
+
+    print(current_states)
+
+print("\nFinal States:", current_states)
+
+if q2 in current_states:
+    print("String", string, "is Accepted")
 else:
-    print("String Rejected")
+    print("String", string, "is Rejected")

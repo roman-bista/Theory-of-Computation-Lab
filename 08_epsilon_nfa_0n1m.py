@@ -1,42 +1,42 @@
-# ε-NFA for L = {0^n1^m | n,m >= 0}
+# ε-NFA: Accepts strings of the language L = {0^n1^m | n,m >= 0}
 
 string = input("Enter a binary string: ")
 
-state = "q0"
-valid = True
+# Initialize states
+q0 = "q0"      # Reading 0's
+q1 = "q1"      # Reading 1's
+
+# ε-transition from q0 to q1
+current_states = {q0, q1}
 
 print("\nProcessing:")
 
 for ch in string:
 
-    old_state = state
+    print(current_states, "--", ch, "-->", end=" ")
 
-    if state == "q0":
+    next_states = set()
 
-        if ch == '0':
-            state = "q0"
+    for state in current_states:
 
-        elif ch == '1':
-            state = "q1"
+        if state == q0:
 
-        else:
-            valid = False
+            if ch == '0':
+                next_states.add(q0)
+                next_states.add(q1)     # ε-transition
 
-    elif state == "q1":
+        elif state == q1:
 
-        if ch == '1':
-            state = "q1"
+            if ch == '1':
+                next_states.add(q1)
 
-        elif ch == '0':
-            valid = False
+    current_states = next_states
 
-    print(old_state, "--", ch, "-->", state)
+    print(current_states)
 
-    if not valid:
-        break
+print("\nFinal States:", current_states)
 
-if valid:
-    print("\nFinal State:", state)
-    print("String Accepted")
+if len(current_states) > 0:
+    print("String", string, "is Accepted")
 else:
-    print("\nString Rejected")
+    print("String", string, "is Rejected")

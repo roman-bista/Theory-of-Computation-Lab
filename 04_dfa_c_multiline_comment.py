@@ -1,44 +1,60 @@
-# DFA for multiline comments in C
+# DFA: Accepts multiline comments of a C program
 
 comment = input("Enter a comment: ")
 
-state = "q0"
+# Initialize states
+q0 = "q0"      # Start State
+q1 = "q1"      # '/' detected
+q2 = "q2"      # Inside comment
+q3 = "q3"      # '*' detected
+q4 = "q4"      # Accept State
+
+state = q0
 
 print("\nProcessing:")
 
 for ch in comment:
 
-    old_state = state
+    print(state, "--", ch, "-->", end=" ")
 
-    if state == "q0":
+    if state == q0:
 
         if ch == '/':
-            state = "q1"
+            state = q1
 
-    elif state == "q1":
-
-        if ch == '*':
-            state = "q2"
-
-    elif state == "q2":
+    elif state == q1:
 
         if ch == '*':
-            state = "q3"
+            state = q2
+
+    elif state == q2:
+
+        if ch == '*':
+            state = q3
         else:
-            state = "q2"
+            state = q2
 
-    elif state == "q3":
+    elif state == q3:
 
         if ch == '/':
-            state = "q4"
+            state = q4
         elif ch == '*':
-            state = "q3"
+            state = q3
         else:
-            state = "q2"
+            state = q2
 
-    print(old_state, "--", ch, "-->", state)
+    elif state == q4:
 
-if state == "q4":
-    print("\nComment Accepted")
+        state = q4
+
+    print(state)
+
+print("\nFinal State:", state)
+
+if state == q4:
+    print("Comment", comment, "is Accepted")
 else:
-    print("\nComment Rejected")
+    print("Comment", comment, "is Rejected")
+
+
+    # /*Hello*/

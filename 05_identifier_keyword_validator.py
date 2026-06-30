@@ -1,4 +1,4 @@
-# Program to validate C identifiers and keywords
+# Program to Validate C Identifiers and Keywords
 
 word = input("Enter an identifier or keyword: ")
 
@@ -13,24 +13,35 @@ keywords = [
     "while"
 ]
 
+print("\nProcessing:")
+
+valid = True
+
+# Check if it is a keyword
 if word in keywords:
-    print("Keyword")
+    print(word, "is found in the keyword list.")
+    print("\nResult:")
+    print(word, "is a C Keyword")
 
 else:
 
-    valid = True
+    # Check first character
+    print("Checking first character:", word[0])
 
-    # First character check
-    if not (word[0].isalpha() or word[0] == '_'):
+    if not (word[0].isalpha() or word[0] == "_"):
         valid = False
 
-    # Remaining characters check
+    # Check remaining characters
     for ch in word:
 
-        if not (ch.isalnum() or ch == '_'):
+        print("Checking:", ch)
+
+        if not (ch.isalnum() or ch == "_"):
             valid = False
 
+    print("\nResult:")
+
     if valid:
-        print("Valid Identifier")
+        print(word, "is a Valid Identifier")
     else:
-        print("Invalid Identifier")
+        print(word, "is an Invalid Identifier")
